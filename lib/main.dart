@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/loginpage.dart';
 import 'package:flutter_app/pages/registerpage.dart';
 
+
 class homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -78,6 +79,7 @@ class homepage extends StatelessWidget {
     );
   }
 }
+
 
 void main() {
   runApp(MaterialApp(

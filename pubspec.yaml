@@ -1,35 +1,21 @@
 name: flutter_app
 description: "A new Flutter project."
-# La siguiente línea previene que el paquete sea publicado accidentalmente en pub.dev usando `flutter pub publish`. Esto es preferido para paquetes privados.
-publish_to: 'none' # Elimina esta línea si deseas publicar en pub.dev
 
-# La siguiente define la versión y el número de compilación para tu aplicación.
-# Un número de versión consiste en tres números separados por puntos, como 1.2.43,
-# seguido opcionalmente por un número de compilación separado por un +.
-# Tanto la versión como el número de compilación pueden ser sobrescritos en flutter
-# build especificando --build-name y --build-number, respectivamente.
-# En Android, build-name es usado como versionName mientras build-number es usado como versionCode.
-# Lee más sobre versionado en Android en https://developer.android.com/studio/publish/versioning
-# En iOS, build-name es usado como CFBundleShortVersionString mientras build-number es usado como CFBundleVersion.
-# Lee más sobre versionado en iOS en https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-# En Windows, build-name es usado como las partes mayor, menor y de parche
-# de las versiones del producto y del archivo mientras build-number es usado como sufijo de compilación.
+publish_to: 'none'
+
+
 version: 1.0.0+1
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
 
-# Las dependencias especifican otros paquetes que tu paquete necesita para funcionar.
-# Para actualizar automáticamente las dependencias de tu paquete a las últimas versiones
-# considera ejecutar `flutter pub upgrade --major-versions`. Alternativamente,
-# las dependencias pueden ser actualizadas manualmente cambiando los números de versión abajo
-# a la última versión disponible en pub.dev. Para ver qué dependencias tienen nuevas
-# versiones disponibles, ejecuta `flutter pub outdated`.
+
 dependencies:
   sqflite: ^2.3.2
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
+  http: any
 
 dev_dependencies:
   flutter_test:
@@ -38,3 +24,4 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  

@@ -1,9 +1,55 @@
+import 'dart:async';
+import 'dart:convert';
+
+
 import 'package:flutter/material.dart';
-import 'package:flutter_app/pages/dashboard.dart';
 import 'package:flutter_app/pages/registerpage.dart';
 import 'package:flutter_app/pages/restorpage.dart';
 
-class loginpage extends StatelessWidget {
+import 'package:http/http.dart' as http;
+
+
+// Clase de configuración para definir la URL base
+class AppConfig {
+  static const String apiUrl = "http://192.168.50.59/tienda/";
+}
+
+class loginpage extends StatefulWidget {
+  @override
+  _loginpageState createState() => _loginpageState();
+}
+
+class _loginpageState extends State<loginpage> {
+  final TextEditingController controllerUser = TextEditingController();
+  final TextEditingController controllerPass = TextEditingController();
+
+  String mensaje = ''; // Variable para almacenar el mensaje de error
+  String username = ''; // Variable para almacenar el nombre de usuario
+
+Future<void> login(BuildContext context) async {
+  final response = await http.post(Uri.parse("${AppConfig.apiUrl}login.php"), body: {
+    "username": controllerUser.text,
+    "password": controllerPass.text,
+  });
+
+  var datauser = json.decode(response.body);
+
+  if (datauser.length == 0) {
+    setState(() {
+      mensaje = "Usuario o contraseña incorrectas";
+    });
+  } else {
+    if (datauser[0]['nivel'] == 'admin' || datauser[0]['nivel'] == 'ventas') {
+      setState(() {
+        username = datauser[0]['username'];
+      });
+      Navigator.pushReplacementNamed(context, '/dashboard');
+    }
+  }
+}
+
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -32,7 +78,7 @@ class loginpage extends StatelessWidget {
       ),
     );
   }
-}
+
 
 
   _header(context) {
@@ -78,12 +124,8 @@ class loginpage extends StatelessWidget {
         SizedBox(height: 20),
         ElevatedButton(
          onPressed: () {
-          // Navegar a otra página cuando se hace clic en el botón "registrate"
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => DashboardPage()), // Reemplaza RegistroPage por la página a la que deseas dirigir al usuario
-          );
-        },
+            login(context);
+          },
           child: Text(
             "Iniciar",
             style: TextStyle(fontSize: 20),
@@ -109,7 +151,7 @@ class loginpage extends StatelessWidget {
             MaterialPageRoute(builder: (context) => restorpage()), // Reemplaza RegistroPage por la página a la que deseas dirigir al usuario
           );
         },
-         child: Text("olbidaste tu contraseña?"));
+         child: Text("olvidaste tu contraseña?"));
   }
 
 _signup(context) {
@@ -125,10 +167,9 @@ _signup(context) {
             MaterialPageRoute(builder: (context) => registerpage()), // Reemplaza RegistroPage por la página a la que deseas dirigir al usuario
           );
         },
-        child: Text("Regístrate"),
-      )
-    ],
-  );
+          child: Text("Regístrate"),
+        )
+      ],
+    );
+  }
 }
-
-
